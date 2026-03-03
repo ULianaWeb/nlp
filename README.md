@@ -1,21 +1,21 @@
-# Lab 02 – Cleaning & Normalization
+# Lab 03 — Lemma/POS Baseline
 
-Task: A – Text Classification (real/fake)
-Text field: title + body
+## Direction
+A) Text Classification (real/fake news)
 
-Run in Colab:
-1. Upload raw.csv
-2. Run notebook
-3. processed_v2.csv is generated
+## Lemmatization Tool
+Stanza (Ukrainian model)
 
-5 hardest edge cases:
-- Apostrophe variants
-- UA abbreviations (м., вул.)
-- URLs
-- Emails
-- Decimals (3.14)
+## Baselines
+1. TF-IDF + Logistic Regression on processed_v2
+2. TF-IDF + Logistic Regression on lemma_text
+3. POS filter (NOUN + ADJ)
 
-Improvements:
-- Deterministic pipeline
-- Idempotent
-- Masked PII
+## Results
+Raw: 0.765 accuracy
+Lemma: 0.78 accuracy
+Lemma + POS: 0.74 accuracy
+
+## Decision
+Lemmas improve classification.
+POS not useful as feature filter.
