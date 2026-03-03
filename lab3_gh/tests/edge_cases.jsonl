@@ -1,0 +1,18 @@
+{"id":1,"raw_text":"м. Київ","expected_behavior":"no split after м."}
+{"id":2,"raw_text":"ivan@gmail.com","expected_behavior":"mask email"}
+{"id":3,"raw_text":"https://pravda.ua","expected_behavior":"mask URL"}
+{"id":4,"raw_text":"п''ять","expected_behavior":"remove and normalize apostrophe"}
+{"id":5,"raw_text":"3.14","expected_behavior":"do not split decimals"}
+{"id":6,"raw_text":"вул. Шевченка 10.","expected_behavior":"no split after вул."}
+{"id":7,"raw_text":"holy@gmail.com","expected_behavior":"mask email"}
+{"id":8,"raw_text":"https://night.com","expected_behavior":"mask URL"}
+{"id":9,"raw_text":"пʼятниця","expected_behavior":"normalize apostrophe"}
+{"id":10,"raw_text":"версія 1.2.3","expected_behavior":"do not split decimals"}{"id":12,"raw_text":"пряма   мова","expected_behavior":"remove spaces"}
+{"id":12,"raw_text":"flask@gmail.com","expected_behavior":"mask email"}
+{"id":13,"raw_text":"https://news.ua","expected_behavior":"mask URL"}
+{"id":14,"raw_text":"пʼятдесят","expected_behavior":"normalize apostrophe"}
+{"id":15,"raw_text":"3.14 версія 1.2.3","expected_behavior":"do not split decimals"}{"id":16,"raw_text":"м. Київ вул. Шевченка 10.","expected_behavior":"no split after ."}
+{"id":17,"raw_text":"uliana@gmail.com","expected_behavior":"mask email"}
+{"id":18,"raw_text":"https://uliana.ua","expected_behavior":"mask URL"}
+{"id":19,"raw_text":"пʼять","expected_behavior":"normalize apostrophe"}
+{"id":20,"raw_text":"23.02.2003","expected_behavior":"do not split decimals"}

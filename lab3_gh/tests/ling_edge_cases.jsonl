@@ -1,0 +1,10 @@
+{"id":1,"text":"Київська міська рада","issue":"PROPN split"}
+{"id":2,"text":"м. Київ","issue":"abbreviation POS"}
+{"id":3,"text":"військово-політичний","issue":"hyphen token"}
+{"id":4,"text":"YouTube","issue":"foreign proper noun"}
+{"id":5,"text":"т.д.","issue":"abbreviation"}
+{"id":6,"text":"працюєш","issue":"verb lemma"}
+{"id":7,"text":"COVID-19","issue":"mixed token"}
+{"id":8,"text":"СБУ","issue":"all caps"}
+{"id":9,"text":"зробимо","issue":"future verb"}
+{"id":10,"text":"IT-компанія","issue":"hyphen + latin"}
