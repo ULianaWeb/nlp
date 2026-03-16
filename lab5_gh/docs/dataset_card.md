@@ -1,0 +1,69 @@
+Назва проєкту: Disinformation UA: Fake News Classification
+
+
+
+Задача A: Binary text classification (fake vs real)
+
+
+
+https://www.kaggle.com/datasets/sophiamatskovych/fake-news-ua
+
+
+
+Обсяг: 12 956 текстів
+
+
+
+Мови: ua, en, pl, bg, ru
+
+
+
+Ризики: повторювані новини з різних джерел, потенційна політична упередженість.
+
+
+
+Очищення: Тексти сформовані шляхом об’єднання заголовка та основного тексту.
+Середня довжина тексту становить приблизно 120 слів.
+Розподіл класів демонструє збалансованість (58% real та 42% fake).
+Було уніфіковано апострофи, прибрано зайві пробіли, видалено посилання, замінено символи/іноземні літери, замасковано чутливу інформацію і т. д.
+Було виявлено 1.51% точних дублів та видалено їх.
+
+
+
+План наступного кроку: застосування TF-IDF та побудова базової моделі класифікації.
+
+
+
+Lemma/POS: Лематизація дещо покращила macro-F1 і accuracy, порівняно з raw текстами.
+
+POS-based filtering (NOUN + ADJ only) знизило шум але іноді викинуло корисні функціональні слова.
+
+Фінальний вибір: використовувати lemma для класифікації.
+
+
+
+Information Extraction – Lab 4
+
+Extracted Fields:
+
+1\. DATE
+
+2\. AMOUNT
+
+3\. LOCATION
+
+Extraction is implemented using regular expressions and dictionaries.
+
+
+
+Ризики: значення поза словником, описки у текстах, невраховані форми запису.
+
+
+
+Split + leakage checks - Lab 5
+
+Risks:
+
+* possible paraphrased duplicates
+* news topics may overlap
+* class imbalance could affect training
