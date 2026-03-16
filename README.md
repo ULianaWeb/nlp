@@ -1,115 +1,376 @@
-The system extracts three types of structured information from Ukrainian news texts:
+\# NLP Lab 5 — Dataset Splitting and Leakage Checks
 
 
 
-1\. DATE
+\## Project Overview
 
-2\. AMOUNT
 
-3\. LOCATION
 
+This project implements dataset splitting and leakage detection procedures for a binary text classification task: \*\*Ukrainian news classification (Real vs Fake)\*\*.
 
 
-Extraction is implemented using regular expressions and dictionaries.
 
+The goal of this laboratory work is to ensure that the dataset is properly prepared for machine learning experiments and that no \*\*data leakage\*\* exists between training, validation, and test sets.
 
 
-\# 1. DATE
 
+The dataset consists of Ukrainian news texts that have been preprocessed during previous laboratory work (Lab 2).
 
 
-The DATE field represents calendar dates mentioned in the text.
 
+---
 
 
-Examples:
 
+\## Dataset
 
 
-12 березня 2024 → 2024-03-12
 
-{
+The dataset contains the following fields:
 
-"field\_type": "DATE",
 
-"value": "2024-03-12",
 
-"span\_text": "12 березня 2024",
+| Column         | Description                      |
 
-"start\_char": 0,
+| -------------- | -------------------------------- |
 
-"end\_char": 14,
+| processed\_text | preprocessed Ukrainian news text |
 
-"method": "regex\_date\_ua"
+| label          | news label (Real / Fake)         |
 
-}
 
 
+During the experiment an additional column is generated:
 
 
 
-\# 2. AMOUNT
+| Column  | Description                             |
 
+| ------- | --------------------------------------- |
 
+| text\_id | unique identifier assigned to each text |
 
-The AMOUNT field represents monetary values mentioned in the text.
 
 
+---
 
-Example:
 
 
+\## Dataset Splitting Strategy
 
-5 млн грн → value=5000000 currency=UAH
 
 
+A \*\*stratified random split\*\* is used to preserve the class distribution across dataset partitions.
 
 
 
-\# 3. LOCATION
+Split proportions:
 
 
 
-LOCATION represents Ukrainian city names mentioned in news articles.
+\* \*\*Train:\*\* 80%
 
+\* \*\*Validation:\*\* 10%
 
+\* \*\*Test:\*\* 10%
 
-\## Example
 
 
+Random seed used for reproducibility:
 
-{
 
-&nbsp;  "field\_type": "LOCATION",
 
-&nbsp;  "value": "польща",
+```
 
-&nbsp;  "span\_text": "польщі",
+seed = 42
 
-&nbsp;  "start\_char": 33,
+```
 
-&nbsp;  "end\_char": 38,
 
-&nbsp;  "method": "city\_dictionary"
 
-}
+Stratification is performed using the label column.
 
 
 
-Precision: 100%
+---
 
 
 
-Edge cases:
+\## Leakage Checks
 
 
 
-{"text": "The client from the USA paid 7500 USD on 15-02-2024.", "gold\_entities": \[\["USA", "COUNTRY"], \["7500 USD", "MONEY"], \["15-02-2024", "DATE"]]}
+Several types of potential dataset leakage are evaluated.
 
-{"text": "A deposit of £1,250.50 was made on 28 Feb 2024 to Germany.", "gold\_entities": \[\["£1,250.50", "MONEY"], \["28 Feb 2024", "DATE"], \["Germany", "COUNTRY"]]}
 
-{"text": "No payment was recorded on 2023/12/31 in Italy.", "gold\_entities": \[\["2023/12/31", "DATE"], \["Italy", "COUNTRY"]]}
 
-{"text": "Transfer to France: 0 USD on 01.01.2024.", "gold\_entities": \[\["0 USD", "MONEY"], \["01.01.2024", "DATE"], \["France", "COUNTRY"]]}
+\### 1. Exact Duplicate Detection
 
-{"text": "The total of $999,999.99 was paid in Germany on December 31st, 2023.", "gold\_entities": \[\["$999,999.99", "MONEY"], \["Germany", "COUNTRY"], \["December 31st, 2023", "DATE"]]}
+
+
+Texts are compared across splits to ensure that identical documents do not appear in multiple subsets.
+
+
+
+Intersections checked:
+
+
+
+\* Train ∩ Validation
+
+\* Train ∩ Test
+
+\* Validation ∩ Test
+
+
+
+---
+
+
+
+\### 2. Near-Duplicate Detection
+
+
+
+Near-duplicate texts are detected using:
+
+
+
+\* \*\*TF-IDF vectorization\*\*
+
+\* \*\*Cosine similarity\*\*
+
+
+
+Pairs with similarity greater than \*\*0.95\*\* are flagged as suspicious.
+
+
+
+---
+
+
+
+\### 3. Template Leakage Detection
+
+
+
+The dataset is scanned for patterns that may reveal labels directly in the text.
+
+
+
+Examples of patterns checked:
+
+
+
+```
+
+label=
+
+class=
+
+category=
+
+fake
+
+real
+
+```
+
+
+
+These patterns may indicate potential label leakage.
+
+
+
+---
+
+
+
+\## Generated Artifacts
+
+
+
+Running the notebook produces the following files.
+
+
+
+\### Dataset Split Files
+
+
+
+```
+
+splits\_train\_ids.txt
+
+splits\_val\_ids.txt
+
+splits\_test\_ids.txt
+
+```
+
+
+
+These files contain the `text\_id` values for each dataset split.
+
+
+
+---
+
+
+
+\### Manifest File
+
+
+
+```
+
+splits\_manifest\_lab5.json
+
+```
+
+
+
+Contains metadata about the split:
+
+
+
+\* split strategy
+
+\* seed
+
+\* dataset sizes
+
+\* label distribution
+
+
+
+---
+
+
+
+\### Leakage Report
+
+
+
+```
+
+leakage\_risk\_report\_lab5.md
+
+```
+
+
+
+Summarizes the results of leakage checks.
+
+
+
+---
+
+
+
+\### Audit Summary
+
+
+
+```
+
+audit\_summary\_lab5.md
+
+```
+
+
+
+Contains a concise overview of dataset statistics and leakage analysis.
+
+
+
+---
+
+
+
+\## Installation
+
+
+
+Install required Python packages:
+
+
+
+```
+
+pip install -r requirements.txt
+
+```
+
+
+
+---
+
+
+
+\## Running the Notebook
+
+
+
+Open and run the notebook:
+
+
+
+```
+
+notebooks/lab5\_split\_leakage\_checks.ipynb
+
+```
+
+
+
+The notebook will:
+
+
+
+1\. Load the processed dataset
+
+2\. Generate dataset splits
+
+3\. Perform leakage checks
+
+4\. Produce audit and report files
+
+
+
+---
+
+
+
+\## Reproducibility
+
+
+
+The experiment uses a fixed random seed:
+
+
+
+```
+
+42
+
+```
+
+
+
+This ensures that dataset splits remain consistent across runs.
+
+
+
+---
+
+
+
+\## Author
+
+
+
+Uliana — NLP coursework project
+
+
+
