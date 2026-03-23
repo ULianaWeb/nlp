@@ -1,376 +1,115 @@
-\# NLP Lab 5 — Dataset Splitting and Leakage Checks
+# NLP Lab 6 — Baseline Text Classification
 
+## Overview
 
+This project implements baseline models for binary classification of Ukrainian news articles into **Real** and **Fake** categories.
 
-\## Project Overview
-
-
-
-This project implements dataset splitting and leakage detection procedures for a binary text classification task: \*\*Ukrainian news classification (Real vs Fake)\*\*.
-
-
-
-The goal of this laboratory work is to ensure that the dataset is properly prepared for machine learning experiments and that no \*\*data leakage\*\* exists between training, validation, and test sets.
-
-
-
-The dataset consists of Ukrainian news texts that have been preprocessed during previous laboratory work (Lab 2).
-
-
+The main goal is to establish a reliable baseline using classical machine learning methods and analyze model behavior.
 
 ---
 
+## Dataset
 
+* Source: Ukrainian news dataset (processed in previous labs)
+* Input: `processed_text`
+* Target: `label` (Real / Fake)
 
-\## Dataset
-
-
-
-The dataset contains the following fields:
-
-
-
-| Column         | Description                      |
-
-| -------------- | -------------------------------- |
-
-| processed\_text | preprocessed Ukrainian news text |
-
-| label          | news label (Real / Fake)         |
-
-
-
-During the experiment an additional column is generated:
-
-
-
-| Column  | Description                             |
-
-| ------- | --------------------------------------- |
-
-| text\_id | unique identifier assigned to each text |
-
-
+Data splits are reused from Lab 5 to ensure consistency and prevent data leakage.
 
 ---
 
+## Models
 
+Two baseline models were implemented:
 
-\## Dataset Splitting Strategy
+### Baseline 1
 
+* TF-IDF (unigrams)
+* Logistic Regression
 
+### Baseline 2
 
-A \*\*stratified random split\*\* is used to preserve the class distribution across dataset partitions.
-
-
-
-Split proportions:
-
-
-
-\* \*\*Train:\*\* 80%
-
-\* \*\*Validation:\*\* 10%
-
-\* \*\*Test:\*\* 10%
-
-
-
-Random seed used for reproducibility:
-
-
-
-```
-
-seed = 42
-
-```
-
-
-
-Stratification is performed using the label column.
-
-
+* TF-IDF (unigrams + bigrams)
+* Logistic Regression with `class_weight="balanced"`
 
 ---
 
+## Evaluation
 
+Metrics used:
 
-\## Leakage Checks
+* Accuracy
+* Macro F1-score
+* Per-class Precision / Recall / F1
 
+### Test Results (Baseline 1)
 
-
-Several types of potential dataset leakage are evaluated.
-
-
-
-\### 1. Exact Duplicate Detection
-
-
-
-Texts are compared across splits to ensure that identical documents do not appear in multiple subsets.
-
-
-
-Intersections checked:
-
-
-
-\* Train ∩ Validation
-
-\* Train ∩ Test
-
-\* Validation ∩ Test
-
-
+| Class | Precision | Recall | F1-score |
+| ----- | --------- | ------ | -------- |
+| Real  | 0.868     | 0.948  | 0.906    |
+| Fake  | 0.916     | 0.799  | 0.853    |
 
 ---
 
+## Key Findings
 
+* The model performs better on **Real** news than on **Fake**.
 
-\### 2. Near-Duplicate Detection
+* Fake news detection is more challenging due to:
 
+  * linguistic similarity with real news
+  * lack of strong discriminative features
 
-
-Near-duplicate texts are detected using:
-
-
-
-\* \*\*TF-IDF vectorization\*\*
-
-\* \*\*Cosine similarity\*\*
-
-
-
-Pairs with similarity greater than \*\*0.95\*\* are flagged as suspicious.
-
-
+* Feature analysis shows reliance on **source-related tokens**, indicating dataset bias.
 
 ---
 
+## Error Analysis
 
+Common error types:
 
-\### 3. Template Leakage Detection
-
-
-
-The dataset is scanned for patterns that may reveal labels directly in the text.
-
-
-
-Examples of patterns checked:
-
-
-
-```
-
-label=
-
-class=
-
-category=
-
-fake
-
-real
-
-```
-
-
-
-These patterns may indicate potential label leakage.
-
-
+* ambiguous or neutral texts
+* overlap between real and fake topics
+* short or low-information articles
 
 ---
 
+## Limitations
 
-
-\## Generated Artifacts
-
-
-
-Running the notebook produces the following files.
-
-
-
-\### Dataset Split Files
-
-
-
-```
-
-splits\_train\_ids.txt
-
-splits\_val\_ids.txt
-
-splits\_test\_ids.txt
-
-```
-
-
-
-These files contain the `text\_id` values for each dataset split.
-
-
+* Model may overfit to specific sources
+* No deep linguistic processing (e.g., lemmatization)
+* Limited generalization
 
 ---
 
+## How to Run
 
-
-\### Manifest File
-
-
-
-```
-
-splits\_manifest\_lab5.json
-
-```
-
-
-
-Contains metadata about the split:
-
-
-
-\* split strategy
-
-\* seed
-
-\* dataset sizes
-
-\* label distribution
-
-
-
----
-
-
-
-\### Leakage Report
-
-
-
-```
-
-leakage\_risk\_report\_lab5.md
-
-```
-
-
-
-Summarizes the results of leakage checks.
-
-
-
----
-
-
-
-\### Audit Summary
-
-
-
-```
-
-audit\_summary\_lab5.md
-
-```
-
-
-
-Contains a concise overview of dataset statistics and leakage analysis.
-
-
-
----
-
-
-
-\## Installation
-
-
-
-Install required Python packages:
-
-
-
-```
-
+```bash
 pip install -r requirements.txt
-
+python classification_baseline.py
 ```
-
-
 
 ---
 
-
-
-\## Running the Notebook
-
-
-
-Open and run the notebook:
-
-
+## Project Structure
 
 ```
-
-notebooks/lab5\_split\_leakage\_checks.ipynb
-
+project_root
+│
+├── notebooks/
+│   └── lab6_tfidf_logistic_baseline.ipynb
+│
+├── src/
+│   └── classification_baseline.py
+│
+├── docs/
+│   └── audit_summary_lab6.md
+│
+├── data/
+│   └── sample/
+│       └── splits_*.txt
+│
+├── processed_v2.csv
+├── requirements.txt
+└── README.md
 ```
-
-
-
-The notebook will:
-
-
-
-1\. Load the processed dataset
-
-2\. Generate dataset splits
-
-3\. Perform leakage checks
-
-4\. Produce audit and report files
-
-
-
----
-
-
-
-\## Reproducibility
-
-
-
-The experiment uses a fixed random seed:
-
-
-
-```
-
-42
-
-```
-
-
-
-This ensures that dataset splits remain consistent across runs.
-
-
-
----
-
-
-
-\## Author
-
-
-
-Uliana — NLP coursework project
-
-
-
