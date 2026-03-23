@@ -42,12 +42,16 @@ Metrics used:
 * Macro F1-score
 * Per-class Precision / Recall / F1
 
-### Test Results (Baseline 1)
+### Test Results
+Test B1 per-class evaluation:
+     Class  Precision    Recall  F1-score  Support
+0  Class 0   0.868000  0.947598  0.906054      458
+1  Class 1   0.916084  0.798780  0.853420      328
 
-| Class | Precision | Recall | F1-score |
-| ----- | --------- | ------ | -------- |
-| Real  | 0.868     | 0.948  | 0.906    |
-| Fake  | 0.916     | 0.799  | 0.853    |
+Test B2 per-class evaluation:
+     Class  Precision    Recall  F1-score  Support
+0  Class 0   0.902128  0.925764  0.913793      458
+1  Class 1   0.892405  0.859756  0.875776      328
 
 ---
 
