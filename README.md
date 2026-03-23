@@ -43,15 +43,17 @@ Metrics used:
 * Per-class Precision / Recall / F1
 
 ### Test Results
-Test B1 per-class evaluation:
-     Class  Precision    Recall  F1-score  Support
-0  Class 0   0.868000  0.947598  0.906054      458
-1  Class 1   0.916084  0.798780  0.853420      328
+#### Test B1 per-class evaluation
+| Class   | Precision | Recall  | F1-score | Support |
+|---------|-----------|---------|----------|---------|
+| Class 0 | 0.868     | 0.948   | 0.906    | 458     |
+| Class 1 | 0.916     | 0.799   | 0.853    | 328     |
 
-Test B2 per-class evaluation:
-     Class  Precision    Recall  F1-score  Support
-0  Class 0   0.902128  0.925764  0.913793      458
-1  Class 1   0.892405  0.859756  0.875776      328
+#### Test B2 per-class evaluation
+| Class   | Precision | Recall  | F1-score | Support |
+|---------|-----------|---------|----------|---------|
+| Class 0 | 0.902     | 0.926   | 0.914    | 458     |
+| Class 1 | 0.892     | 0.860   | 0.876    | 328     |
 
 ---
 
