@@ -1,72 +1,53 @@
-# NLP Lab 6 — Baseline Text Classification
+# NLP Lab 7 — Linear SVM and Feature Engineering
 
-## Overview
+## Task
 
-This project implements baseline models for binary classification of Ukrainian news articles into **Real** and **Fake** categories.
+(A) Binary classification 
 
-The main goal is to establish a reliable baseline using classical machine learning methods and analyze model behavior.
+Improve baseline text classification model (Real vs Fake news) by exploring:
 
----
-
-## Dataset
-
-* Source: Ukrainian news dataset (processed in previous labs)
-* Input: `processed_text`
-* Target: `label` (Real / Fake)
-
-Data splits are reused from Lab 5 to ensure consistency and prevent data leakage.
+* Linear SVM
+* Character n-grams
+* Class imbalance handling
+* Threshold tuning
 
 ---
 
 ## Models
 
-Two baseline models were implemented:
+The following models were implemented:
 
-### Baseline 1
-
-* TF-IDF (unigrams)
-* Logistic Regression
-
-### Baseline 2
-
-* TF-IDF (unigrams + bigrams)
-* Logistic Regression with `class_weight="balanced"`
+1. Logistic Regression (baseline from Lab 6)
+2. Linear SVM (word n-grams)
+3. Linear SVM (character n-grams)
+4. Linear SVM (class_weight="balanced")
 
 ---
 
-## Evaluation
+## Features
 
-Metrics used:
+* Word n-grams (1–2)
+* Character n-grams (3–5)
 
-* Accuracy
-* Macro F1-score
-* Per-class Precision / Recall / F1
 
-### Test Results
-#### Test B1 per-class evaluation
-| Class   | Precision | Recall  | F1-score | Support |
-|---------|-----------|---------|----------|---------|
-| Class 0 | 0.868     | 0.948   | 0.906    | 458     |
-| Class 1 | 0.916     | 0.799   | 0.853    | 328     |
+## Results
 
-#### Test B2 per-class evaluation
-| Class   | Precision | Recall  | F1-score | Support |
-|---------|-----------|---------|----------|---------|
-| Class 0 | 0.902     | 0.926   | 0.914    | 458     |
-| Class 1 | 0.892     | 0.860   | 0.876    | 328     |
+| Model        | Accuracy | Macro-F1 |
+| ------------ | -------- | -------- |
+| LogReg       |  0.8982  |  0.8947  |
+| SVM word     |  0.8944  |  0.8902  |
+| SVM char     |  0.9300  |  0.9276  |
+| SVM balanced |  0.8893  |  0.8856  |
 
 ---
 
-## Key Findings
+## Key Observations
 
-* The model performs better on **Real** news than on **Fake**.
-
-* Fake news detection is more challenging due to:
-
-  * linguistic similarity with real news
-  * lack of strong discriminative features
-
-* Feature analysis shows reliance on **source-related tokens**, indicating dataset bias.
+* SVM generally outperforms Logistic Regression
+* Character n-grams improve robustness to noisy text
+* No class imbalance
+* Threshold tuning allows control over precision/recall trade-off
+* Char(3,5) SVM works best
 
 ---
 
@@ -74,48 +55,25 @@ Metrics used:
 
 Common error types:
 
-* ambiguous or neutral texts
-* overlap between real and fake topics
-* short or low-information articles
+* overlapping topics between real and fake news
+* short or low-information texts
+* ambiguous phrasing
 
 ---
 
-## Limitations
+## Leakage & Bias
 
-* Model may overfit to specific sources
-* No deep linguistic processing (e.g., lemmatization)
-* Limited generalization
+No direct data leakage was detected.
 
 ---
 
-## How to Run
+## Conclusion
 
-```bash
-pip install -r requirements.txt
-python classification_baseline.py
-```
+Linear SVM combined with TF-IDF provides a strong baseline for Ukrainian fake news classification.
 
----
+Further improvements may include:
 
-## Project Structure
+* combining word + char features
+* using linguistic features
+* applying transformer-based models
 
-```
-project_root
-│
-├── notebooks/
-│   └── lab6_tfidf_logistic_baseline.ipynb
-│
-├── src/
-│   └── classification_baseline.py
-│
-├── docs/
-│   └── audit_summary_lab6.md
-│
-├── data/
-│   └── sample/
-│       └── splits_*.txt
-│
-├── processed_v2.csv
-├── requirements.txt
-└── README.md
-```
