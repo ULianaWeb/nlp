@@ -1,0 +1,9 @@
+pandas
+numpy
+scikit-learn
+stanza
+os
+json
+matplotlib
+seaborn
+tqdm

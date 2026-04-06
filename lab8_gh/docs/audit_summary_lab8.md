@@ -1,0 +1,34 @@
+# Lab 8 Audit Summary
+
+
+
+Original size: (12759, 2)
+
+After filtering: (8947, 3)
+
+
+
+Models:
+
+* LSA (k=3, k=5)
+* LDA (k=3, k=5)
+
+
+
+Steps:
+
+* фільтрація
+* TF-IDF / Count vectorization
+* topic extraction
+* top words analysis
+* top documents analysis
+
+
+
+Findings:
+
+* теми доволі шумні і overlapping
+* і LSA, і LDA дають майже однаковий результат
+* LDA має більше беззмістовних тем
+* LSA наче корисніша, але загалом теми не надто різні, зокрема через занадто однорідний корпус. Майже всі тексти на військову тематику, тож поділ на теми для такої задачі бінарної класифікації на цьому датасеті не надто інформативний. 
+
