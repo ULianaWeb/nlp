@@ -1,3 +1,5 @@
+Лабораторна робота 9 — Word Embeddings (Word2Vec / FastText)
+
 Corpus: Ukrainian news (processed_v2.csv)
 Models trained: Word2Vec, FastText
 Parameters:
