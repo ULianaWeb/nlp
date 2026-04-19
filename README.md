@@ -1,38 +1,14 @@
-# NLP Lab 8 — LSA/LDA
+Corpus: Ukrainian news (processed_v2.csv)
+Models trained: Word2Vec, FastText
+Parameters:
+Word2Vec: {'vector_size': 200, 'window': 5, 'min_count': 5, 'sg': 1, 'workers': 1, 'epochs': 8}
+FastText: {'vector_size': 200, 'window': 5, 'min_count': 5, 'sg': 1, 'workers': 1, 'epochs': 8}
 
-## Task
+Порівняння Word2Vec vs FastText
+Схожі випадки: часті загальні слова і добре представлені доменні слова (наприклад розслідування) — обидві моделі дають схожі сусіди.
+Де FastText кращий: морфологічні варіанти, OOV, токени з пунктуацією; корисний для підхоплення форм і помилок.
+Де Word2Vec кращий: часті бренди/імена/технічні терміни (наприклад pfizer, comirпaty) і стабільні контекстні колокації.
+Висновок: використовувати FastText як основний інструмент для обробки морфологічних/шумних форм і Word2Vec як додатковий джерело семантичних фіч; розглянути конкатенацію векторів або TF‑IDF‑weighted average документних векторів.
 
-(A) Binary classification 
-
-Improve baseline text classification model (Real vs Fake news) by exploring:
-
-* LSA
-* LDA
-
----
-
-## Models
-
-The following models were implemented:
-
-* LSA (k=3, k=5)
-* LDA (k=3, k=5)
-
----
-
-## Steps
-
-* фільтрація
-* TF-IDF / Count vectorization
-* topic extraction
-* top words analysis
-* top documents analysis
-
----
-
-## Observations
-
-* overlapping and noisy topics
-* almost no difference between LSA and LDA
-* more useless topics with LDA
-* LSA seems better, but topics are overall not too different from each other, texts are very similar.
+Головний висновок
+Embeddings у цьому корпусі корисні як аналітичний інструмент для вивчення словника, виявлення доменних термінів і оцінки шуму. Для задачі класифікації real/fake їхня практична користь обмежена: вони можуть доповнювати інші фічі (метадані, джерела, стилістичні ознаки), але самі по собі не є гарантованим вирішенням проблеми. FastText особливо корисний для OOV і морфології; Word2Vec іноді дає більш інформативні семантичні сусіди для частих термінів.
