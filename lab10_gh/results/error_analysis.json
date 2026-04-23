@@ -1,0 +1,173 @@
+[
+  {
+    "text_id": 3,
+    "context": "повітряна тривога в низці областей! повітряна тривога в низці об",
+    "expected": {"start": 26, "end": 34, "label": "LOC", "text": "областей"},
+    "predicted": null,
+    "error_type": "FN",
+    "category": "Generic location term",
+    "explanation": "Модель не розпізнала загальну форму 'областей' як локатив/географічний термін."
+  },
+  {
+    "text_id": 4,
+    "context": "фонд рокфеллера володіє патентом на вірус зік",
+    "expected": {"start": 0, "end": 15, "label": "ORG", "text": "фонд рокфеллера"},
+    "predicted": null,
+    "error_type": "FN",
+    "category": "missed entity",
+    "explanation": "Відома організація ('Фонд Рокфеллера') не була виявлена — ймовірно відмінкова форма або відсутність у словнику."
+  },
+  {
+    "text_id": 9,
+    "context": "елосі приземлився в аеропорту тайбея | самоліт з пелосі приземливс",
+    "expected": {"start": 41, "end": 47, "label": "LOC", "text": "тайбея"},
+    "predicted": null,
+    "error_type": "FN",
+    "category": "missed entity",
+    "explanation": "Іноземна назва 'Тайбей' у відмінковій формі ('тайбея') не розпізнана як GPE/LOC."
+  },
+  {
+    "text_id": 9,
+    "context": "самоліт з пелосі приземлився в аеропорту тайбе",
+    "expected": {"start": 10, "end": 16, "label": "PER", "text": "пелосі"},
+    "predicted": null,
+    "error_type": "FN",
+    "category": "missed entity",
+    "explanation": "Прізвище 'Пелосі' не було розпізнане як PERSON — відсутність у словнику або нестандартна форма."
+  },
+  {
+    "text_id": 11,
+    "context": "в київській області працює ппо. в київській області працює п",
+    "expected": {"start": 27, "end": 30, "label": "ORG", "text": "ппо"},
+    "predicted": null,
+    "error_type": "FN",
+    "category": "Abbreviation not recognized",
+    "explanation": "Абревіатура 'ППО' не розпізнана як організація."
+  },
+  {
+    "text_id": 11,
+    "context": "о. в київській області працює ппо.",
+    "expected": {"start": 59, "end": 62, "label": "ORG", "text": "ппо"},
+    "predicted": null,
+    "error_type": "FN",
+    "category": "Abbreviation not recognized",
+    "explanation": "Друга згадка абревіатури 'ППО' також пропущена."
+  },
+  {
+    "text_id": 13,
+    "context": "путін розпочав репресії проти 5-ї служби фсб путін розпочав репресії проти",
+    "expected": {"start": 30, "end": 44, "label": "ORG", "text": "5-ї служби фсб"},
+    "predicted": null,
+    "error_type": "FN",
+    "category": "Complex organization name",
+    "explanation": "Складна назва організації ('5-ї служби фсб') не була виділена як один span; модель розбила її."
+  },
+  {
+    "text_id": 13,
+    "context": "путін розпочав репресії проти 5-ї служби фсб путін розпочав репресії п",
+    "expected": null,
+    "predicted": {"start": 30, "end": 40, "label": "ORG", "text": "5-ї служби"},
+    "error_type": "FP",
+    "category": "Partial span",
+    "explanation": "Виділено тільки частину організації ('5-ї служби') замість повної назви — частковий false positive."
+  },
+  {
+    "text_id": 13,
+    "context": "чав репресії проти 5-ї служби фсб путін розпочав репресії проти",
+    "expected": null,
+    "predicted": {"start": 41, "end": 44, "label": "ORG", "text": "фсб"},
+    "error_type": "FP",
+    "category": "Partial span",
+    "explanation": "Виділено 'фсб' окремо; модель не поєднала токени в один коректний ORG‑span."
+  },
+  {
+    "text_id": 14,
+    "context": "нато оточує росію нато оточує росі",
+    "expected": {"start": 0, "end": 4, "label": "ORG", "text": "нато"},
+    "predicted": null,
+    "error_type": "FN",
+    "category": "missed entity",
+    "explanation": "Абревіатура 'НАТО' не була розпізнана як ORG у цьому контексті."
+  },
+  {
+    "text_id": 17,
+    "context": "є заморозити активи путіна та лаврова єс планує заморозити активи п",
+    "expected": {"start": 38, "end": 45, "label": "PER", "text": "лаврова"},
+    "predicted": null,
+    "error_type": "FN",
+    "category": "missed entity",
+    "explanation": "Прізвище 'Лаврова' не було виявлене як PERSON."
+  },
+  {
+    "text_id": 17,
+    "context": "зити активи путіна та лаврова єс планує заморозити активи путі",
+    "expected": {"start": 46, "end": 48, "label": "ORG", "text": "єс"},
+    "predicted": null,
+    "error_type": "FN",
+    "category": "missed entity",
+    "explanation": "Абревіатура 'ЄС' не розпізнана як ORG."
+  },
+  {
+    "text_id": 17,
+    "context": "є заморозити активи путіна та лаврова єс планує заморозити активи путі",
+    "expected": null,
+    "predicted": {"start": 38, "end": 48, "label": "PER", "text": "лаврова єс"},
+    "error_type": "FP",
+    "category": "Span merge / boundary error",
+    "explanation": "Модель об'єднала прізвище 'Лаврова' з абревіатурою 'ЄС', створивши некоректний span."
+  },
+  {
+    "text_id": 18,
+    "context": "и полку кадирова на територію днр увійшли частини полку кадиров",
+    "expected": {"start": 61, "end": 64, "label": "ORG", "text": "днр"},
+    "predicted": null,
+    "error_type": "FN",
+    "category": "Organization acronym missing",
+    "explanation": "Абревіатура 'ДНР' не була розпізнана як ORG у цьому контексті."
+  },
+  {
+    "text_id": 18,
+    "context": "рію днр увійшли частини полку кадирова на територію днр увійшли част",
+    "expected": {"start": 39, "end": 47, "label": "PER", "text": "кадирова"},
+    "predicted": null,
+    "error_type": "FN",
+    "category": "missed entity",
+    "explanation": "Пропущено прізвище 'Кадирова' як PERSON."
+  },
+  {
+    "text_id": 18,
+    "context": "рію днр увійшли частини полку кадирова",
+    "expected": {"start": 87, "end": 95, "label": "PER", "text": "кадирова"},
+    "predicted": null,
+    "error_type": "FN",
+    "category": "missed entity",
+    "explanation": "Друга згадка 'Кадирова' також пропущена."
+  },
+  {
+    "text_id": 18,
+    "context": "на територію днр увійшли частини полку кадиров",
+    "expected": {"start": 13, "end": 16, "label": "ORG", "text": "днр"},
+    "predicted": null,
+    "error_type": "FN",
+    "category": "Organization acronym missing",
+    "explanation": "Ще одна згадка 'ДНР' пропущена."
+  },
+  {
+    "text_id": 18,
+    "context": "на територію днр увійшли частини полку кадиров",
+    "expected": null,
+    "predicted": {"start": 13, "end": 16, "label": "LOC", "text": "днр"},
+    "error_type": "FP",
+    "category": "Label mismatch",
+    "explanation": "Модель позначила 'ДНР' як LOC замість очікуваного ORG — невірна категорія."
+  },
+  {
+    "text_id": 18,
+    "context": "и полку кадирова на територію днр увійшли частини полку кадиров",
+    "expected": null,
+    "predicted": {"start": 61, "end": 64, "label": "LOC", "text": "днр"},
+    "error_type": "FP",
+    "category": "Label mismatch",
+    "explanation": "Ще один випадок, де 'ДНР' класифіковано як LOC замість ORG."
+  }
+]
